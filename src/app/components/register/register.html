@@ -1,0 +1,18 @@
+<div style="padding: 15px">
+  <h1>Register</h1>
+  <form
+    #registerform="ngForm"
+    (ngSubmit)="onSubmit(registerform)"
+    style="display: flex; flex-direction: column; gap: 15px"
+  >
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput type="email" name="email" required ngModel />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput type="password" name="password" required ngModel />
+    </mat-form-field>
+    <button mat-raised-button type="submit" [disabled]="!registerform.valid">Register</button>
+  </form>
+</div>
