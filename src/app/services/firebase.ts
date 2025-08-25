@@ -7,26 +7,22 @@ import { AuthService } from '../auth/auth-service';
 })
 export class Firebase {
   url: string = 'https://angular-webapp-2cdf2-default-rtdb.europe-west1.firebasedatabase.app/data';
-  APIkey: string = 'AIzaSyDtH 0kwndcSLiimZdwNe0EbL5Wusc-LJa8';
-  loginURL: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=
-${this.APIkey}`;
-  registerURL: string = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key ${this.APIkey}`;
 
-  constructor(private http: HttpClient, private authServie: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   insertData(url: string, body: {}) {
-    return this.http.post(`${url}.json`, body);
+    return this.http.post(`${url}.json?auth=${this.authService.user?.token}`, body);
   }
 
   getData(url: string) {
-    return this.http.get(`${url}.json`);
+    return this.http.get(`${url}.json?auth=${this.authService.user?.token}`);
   }
 
   patchData(url: string, id: string | undefined, body: {}) {
-    return this.http.patch(`${url}/${id}.json`, body);
+    return this.http.patch(`${url}/${id}.json?auth=${this.authService.user?.token}`, body);
   }
 
   deleteData(url: string, id: string | undefined) {
-    return this.http.delete(`${url}/${id}.json`);
+    return this.http.delete(`${url}/${id}.json?auth=${this.authService.user?.token}`);
   }
 }
